@@ -1,7 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AuditInputs, AuditResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = import.meta.env.VITE_API_KEY;
+
+if (!apiKey) {
+  console.error("API Key is missing! Make sure VITE_API_KEY is set in your environment variables.");
+}
+
+const ai = new GoogleGenAI({ apiKey: apiKey || "dummy_key_to_prevent_crash" });
 
 export const generateAuditAnalysis = async (inputs: AuditInputs): Promise<AuditResult> => {
   // --- 1. Calculate Score Deterministically ---
