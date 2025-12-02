@@ -94,7 +94,7 @@ const App: React.FC = () => {
   return (
     <div className="font-sans text-slate-900">
       {appState === AppState.LANDING && (
-        <LandingPage onStartAudit={handleStartAudit} />
+        <LandingPage onStart={handleStartAudit} />
       )}
 
       {appState === AppState.AUDIT && (
