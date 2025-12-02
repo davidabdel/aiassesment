@@ -2,6 +2,7 @@ export interface AuditInputs {
   // Contact & Basics
   name: string;
   email: string;
+  phone: string;
   role: 'Owner' | 'CEO' | 'Managing Director' | 'Other';
   teamSize: '5-10' | '11-25' | '26-50' | '51+';
   mainFocus: 'Increasing profits' | 'Reducing owner time' | 'Improving team output' | 'Scaling without more staff' | 'Other';

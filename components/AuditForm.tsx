@@ -19,6 +19,7 @@ const AuditForm: React.FC<AuditFormProps> = ({ onComplete }) => {
   const [formData, setFormData] = useState<FormState>({
     name: '',
     email: '',
+    phone: '',
     role: null,
     teamSize: null,
     mainFocus: null,
@@ -45,6 +46,7 @@ const AuditForm: React.FC<AuditFormProps> = ({ onComplete }) => {
         valid = !!(
           formData.name?.trim() &&
           formData.email?.trim() &&
+          formData.phone?.trim() &&
           formData.role &&
           formData.teamSize &&
           formData.mainFocus
@@ -185,6 +187,17 @@ const AuditForm: React.FC<AuditFormProps> = ({ onComplete }) => {
                     onChange={(e) => updateField('email', e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-900"
                     placeholder="john@company.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">What's your phone number? <span className="text-red-500">*</span></label>
+                  <input
+                    type="tel"
+                    value={formData.phone || ''}
+                    onChange={(e) => updateField('phone', e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-slate-900"
+                    placeholder="+1 (555) 000-0000"
                   />
                 </div>
 
