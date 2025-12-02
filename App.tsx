@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LandingPage from './components/LandingPage';
 import AuditForm from './components/AuditForm';
 import ResultsPage from './components/ResultsPage';
@@ -12,6 +12,61 @@ const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.LANDING);
   const [inputs, setInputs] = useState<AuditInputs | null>(null);
   const [results, setResults] = useState<AuditResult | null>(null);
+
+  // Sync URL with AppState
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const search = params.toString() ? `?${params.toString()}` : '';
+
+    let targetPath = '/';
+    switch (appState) {
+      case AppState.LANDING:
+        targetPath = '/';
+        break;
+      case AppState.AUDIT:
+        targetPath = '/assessment';
+        break;
+      case AppState.ANALYZING:
+        targetPath = '/analyzing';
+        break;
+      case AppState.RESULTS:
+        targetPath = '/results';
+        break;
+      case AppState.BOOKING:
+        targetPath = '/booking';
+        break;
+    }
+
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ appState }, '', `${targetPath}${search}`);
+    }
+  }, [appState]);
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      // If state was saved in history, use it
+      if (event.state && event.state.appState) {
+        setAppState(event.state.appState);
+        return;
+      }
+
+      // Fallback to path detection
+      const path = window.location.pathname;
+      if (path === '/results' && results) {
+        setAppState(AppState.RESULTS);
+      } else if (path === '/booking') {
+        setAppState(AppState.BOOKING);
+      } else if (path === '/assessment') {
+        setAppState(AppState.AUDIT);
+      } else {
+        setAppState(AppState.LANDING);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [results]);
 
   const getVariantName = () => {
     const searchParams = new URLSearchParams(window.location.search);
