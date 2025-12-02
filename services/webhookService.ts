@@ -1,0 +1,35 @@
+import { AuditInputs } from '../types';
+
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/YaalPPYLvgFNpGoyTfuq/webhook-trigger/0780fbcf-5ef2-46fa-96dc-74750232412e';
+
+export const sendToWebhook = async (data: AuditInputs) => {
+    try {
+        // We use fetch with 'no-cors' mode if needed, but usually webhooks accept POST.
+        // However, for standard JSON webhooks, we want to see the response if possible.
+        // LeadConnector webhooks usually support CORS or are server-side. 
+        // Since this is a client-side app, we'll try a standard POST.
+
+        const payload = {
+            ...data,
+            submittedAt: new Date().toISOString(),
+            source: 'AI Time Leak Audit App'
+        };
+
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            console.warn('Webhook submission failed:', response.statusText);
+        } else {
+            console.log('Webhook submitted successfully');
+        }
+    } catch (error) {
+        console.error('Error sending to webhook:', error);
+        // We don't throw here to avoid blocking the user flow if the webhook fails
+    }
+};
