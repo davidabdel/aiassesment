@@ -5,7 +5,7 @@ import ResultsPage from './components/ResultsPage';
 import BookingPage from './components/BookingPage';
 import { AppState, AuditInputs, AuditResult } from './types';
 import { generateAuditAnalysis } from './services/geminiService';
-import { sendToWebhook } from './services/webhookService';
+import { sendToWebhook, sendResultsWebhook } from './services/webhookService';
 import { Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -111,6 +111,9 @@ const App: React.FC = () => {
 
       setResults(analysisResult);
       setAppState(AppState.RESULTS);
+
+      // Send results to webhook
+      sendResultsWebhook(data, analysisResult);
 
       // Track assessment_completed in GA4
       if ((window as any).gtag) {

@@ -33,3 +33,33 @@ export const sendToWebhook = async (data: AuditInputs) => {
         // We don't throw here to avoid blocking the user flow if the webhook fails
     }
 };
+
+const RESULTS_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/YaalPPYLvgFNpGoyTfuq/webhook-trigger/a7737ad2-fcb6-4fd7-8570-f7e92fe7d4cb';
+
+export const sendResultsWebhook = async (inputs: AuditInputs, results: any) => {
+    try {
+        const payload = {
+            ...inputs,
+            ...results,
+            submittedAt: new Date().toISOString(),
+            source: 'AI Time Leak Audit App - Results'
+        };
+
+        const response = await fetch(RESULTS_WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            console.warn('Results webhook submission failed:', response.statusText);
+        } else {
+            console.log('Results webhook submitted successfully');
+        }
+    } catch (error) {
+        console.error('Error sending results to webhook:', error);
+    }
+};
+
