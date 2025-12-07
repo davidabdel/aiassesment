@@ -9,7 +9,12 @@ import { sendToWebhook, sendResultsWebhook } from './services/webhookService';
 import { Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [appState, setAppState] = useState<AppState>(AppState.LANDING);
+  const [appState, setAppState] = useState<AppState>(() => {
+    const path = window.location.pathname;
+    if (path === '/assessment') return AppState.AUDIT;
+    if (path === '/booking') return AppState.BOOKING;
+    return AppState.LANDING;
+  });
   const [inputs, setInputs] = useState<AuditInputs | null>(null);
   const [results, setResults] = useState<AuditResult | null>(null);
 
