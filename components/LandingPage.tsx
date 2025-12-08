@@ -11,7 +11,7 @@ type VariantKey = BaseVariant | `${BaseVariant}-light`;
 interface HeroContent {
   title: string;
   headline: React.ReactNode;
-  subhead: string;
+  subhead: React.ReactNode;
   cta: string;
   supporting: string;
   icon: React.ElementType;
@@ -40,11 +40,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
   const ProfitVisual = () => (
     <div className="relative w-24 h-24 mx-auto mb-6">
-       <div className={`absolute inset-0 rounded-full blur-xl animate-pulse ${isLight ? 'bg-yellow-500/30' : 'bg-yellow-500/20'}`}></div>
-       <Coins className={`w-full h-full relative z-10 ${isLight ? 'text-yellow-600' : 'text-yellow-400'}`} />
-       {/* Falling coins effect */}
-       <div className={`absolute -top-4 -right-4 animate-[bounce_2s_infinite] opacity-75 ${isLight ? 'text-yellow-700' : 'text-yellow-200'}`}>$</div>
-       <div className={`absolute top-0 -left-6 animate-[bounce_2.5s_infinite] delay-75 opacity-75 ${isLight ? 'text-yellow-600' : 'text-yellow-300'}`}>$</div>
+      <div className={`absolute inset-0 rounded-full blur-xl animate-pulse ${isLight ? 'bg-yellow-500/30' : 'bg-yellow-500/20'}`}></div>
+      <Coins className={`w-full h-full relative z-10 ${isLight ? 'text-yellow-600' : 'text-yellow-400'}`} />
+      {/* Falling coins effect */}
+      <div className={`absolute -top-4 -right-4 animate-[bounce_2s_infinite] opacity-75 ${isLight ? 'text-yellow-700' : 'text-yellow-200'}`}>$</div>
+      <div className={`absolute top-0 -left-6 animate-[bounce_2.5s_infinite] delay-75 opacity-75 ${isLight ? 'text-yellow-600' : 'text-yellow-300'}`}>$</div>
     </div>
   );
 
@@ -91,15 +91,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
   const ScaleVisual = () => (
     <div className="relative w-24 h-24 mx-auto mb-6">
-       <div className={`absolute inset-0 rounded-full blur-xl ${isLight ? 'bg-blue-500/30' : 'bg-blue-500/20'}`}></div>
-       <TrendingUp className={`w-full h-full relative z-10 ${isLight ? 'text-blue-600' : 'text-blue-400'}`} />
-       {/* Flat line for staff */}
-       <div className={`absolute bottom-2 left-0 w-full h-1 rounded-full overflow-hidden ${isLight ? 'bg-slate-300' : 'bg-slate-600'}`}>
-         <div className={`w-1/3 h-full ${isLight ? 'bg-slate-500' : 'bg-slate-400'}`}></div>
-       </div>
-       <div className={`absolute -bottom-4 w-full text-center text-[10px] uppercase tracking-widest ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>
-         Headcount: Flat
-       </div>
+      <div className={`absolute inset-0 rounded-full blur-xl ${isLight ? 'bg-blue-500/30' : 'bg-blue-500/20'}`}></div>
+      <TrendingUp className={`w-full h-full relative z-10 ${isLight ? 'text-blue-600' : 'text-blue-400'}`} />
+      {/* Flat line for staff */}
+      <div className={`absolute bottom-2 left-0 w-full h-1 rounded-full overflow-hidden ${isLight ? 'bg-slate-300' : 'bg-slate-600'}`}>
+        <div className={`w-1/3 h-full ${isLight ? 'bg-slate-500' : 'bg-slate-400'}`}></div>
+      </div>
+      <div className={`absolute -bottom-4 w-full text-center text-[10px] uppercase tracking-widest ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>
+        Headcount: Flat
+      </div>
     </div>
   );
 
@@ -125,7 +125,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       icon: Zap,
       gradientDark: "from-indigo-400 to-purple-400",
       gradientLight: "from-indigo-600 to-purple-600",
-      visualComponent: null 
+      visualComponent: null
     },
     profit: {
       title: "Profit Leak Locator™",
@@ -140,10 +140,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
     },
     wage: {
       title: "Wage Waste Detector™",
-      headline: <>Are you ready to stop wasting wages <br className="hidden sm:block" /> on <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isLight ? 'from-red-600 to-rose-600' : 'from-red-400 to-rose-500'}`}>work AI could do automatically?</span></>,
-      subhead: "Take the free audit and uncover which tasks are wasting the most payroll. Get your personalized Wage Waste Score in under 2 minutes.",
-      cta: "Start the Wage Waste Detector",
-      supporting: "Find out where hours disappear and which tasks are driving unnecessary wage costs.",
+      headline: <>How much payroll are you wasting every month? <br className="hidden sm:block" /><span className={`block mt-2 text-2xl sm:text-3xl ${isLight ? 'text-red-600' : 'text-red-400'}`}>Most businesses overpay staff 15–35% without realising it.</span></>,
+      subhead: (
+        <>
+          <p className="mb-6">Take the 2-minute Wage Waste Detector™ and uncover the tasks draining payroll — and what AI can replace immediately to reduce wage costs.</p>
+          <ul className={`text-left max-w-md mx-auto space-y-3 mb-2 ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> Identify the tasks burning payroll unnecessarily</li>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> See where your team is overspending time</li>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> Find out what AI can automate immediately</li>
+          </ul>
+        </>
+      ),
+      cta: "Reveal My Wage Waste Score",
+      supporting: "⭐ Trusted by business owners across Australia",
       icon: Banknote,
       gradientDark: "from-red-400 to-rose-500",
       gradientLight: "from-red-600 to-rose-600",
@@ -173,10 +182,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
     },
     founder: {
       title: "Founder Workload Reset™",
-      headline: <>Are you ready to reset your workload <br className="hidden sm:block" /> and <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isLight ? 'from-orange-600 to-amber-600' : 'from-orange-400 to-amber-500'}`}>stop carrying the business on your back?</span></>,
-      subhead: "Take the free audit and expose the tasks that are overloading your plate. Get your personalized Workload Reset Score in under 2 minutes.",
-      cta: "Start the Workload Reset",
-      supporting: "Discover the exact tasks you shouldn’t be doing — and what AI can offload for you.",
+      headline: <>Are you carrying your <br className="hidden sm:block" /> <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isLight ? 'from-orange-600 to-amber-600' : 'from-orange-400 to-amber-500'}`}>entire business on your back?</span></>,
+      subhead: (
+        <>
+          <p className="mb-6">Take the 2-minute Founder Workload Reset™ to uncover exactly what you should stop doing — and how AI can remove 10–20 hours from your week.</p>
+          <ul className={`text-left max-w-md mx-auto space-y-3 mb-2 ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> Identify the tasks draining your time and energy</li>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> Reveal what you can automate, delegate, or delete</li>
+            <li className="flex items-start gap-2"><span className="text-emerald-500 shrink-0">✔</span> Get your Founder Load Score instantly (no email until results)</li>
+          </ul>
+        </>
+      ),
+      cta: "Calculate My Founder Load Score",
+      supporting: "⭐ Trusted by business owners across Australia",
       icon: Briefcase,
       gradientDark: "from-orange-400 to-amber-500",
       gradientLight: "from-orange-600 to-amber-600",
@@ -223,12 +241,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
       {/* Hero Section */}
       <main className="flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 py-12 sm:py-20 max-w-4xl mx-auto relative z-10">
-        
+
         {/* Dynamic Visual */}
         <div className="animate-fadeIn">
-            {currentContent.visualComponent}
+          {currentContent.visualComponent}
         </div>
-        
+
         <h1 className={`text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight animate-slideUp ${isLight ? 'text-slate-900' : 'text-white'}`}>
           {currentContent.headline}
         </h1>
@@ -246,7 +264,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         </button>
 
         <div className={`mt-8 text-sm flex flex-col sm:flex-row items-center gap-4 animate-slideUp delay-300 ${isLight ? 'text-slate-500' : 'text-slate-500'}`}>
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500"/> {currentContent.supporting}</span>
+          {currentContent.supporting.startsWith('⭐') ? (
+            <span className="flex items-center gap-2 font-medium">{currentContent.supporting}</span>
+          ) : (
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> {currentContent.supporting}</span>
+          )}
         </div>
       </main>
 
@@ -254,7 +276,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       <section className={`py-16 w-full relative z-10 ${isLight ? 'bg-white border-t border-slate-200' : 'bg-slate-800/50 border-t border-slate-700/50'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className={`text-2xl font-bold text-center mb-12 ${isLight ? 'text-slate-900' : 'text-white'}`}>What this audit will show you</h2>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className={`p-6 rounded-2xl border transition-colors ${isLight ? 'bg-slate-50 border-slate-200 hover:border-indigo-500/50' : 'bg-slate-900 border-slate-700 hover:border-indigo-500/50'}`}>
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${isLight ? 'bg-indigo-100 text-indigo-600' : 'bg-indigo-500/20 text-indigo-400'}`}>
